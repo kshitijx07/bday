@@ -62,21 +62,20 @@ function App() {
       onCorrect={handleLayerUnlock}
       layerNumber={1}
     />,
-    <CountdownReveal key="countdown1" onContinue={handleLayerUnlock} />,
+    <LoveLetterReveal key="letter" onContinue={handleLayerUnlock} />,
     <QuizLayer
       key="quiz2"
       question={quizQuestions[1]}
       onCorrect={handleLayerUnlock}
       layerNumber={2}
     />,
-    <LoveLetterReveal key="letter" onContinue={handleLayerUnlock} />,
+    <MessageSection key="message" onContinue={handleLayerUnlock} />,
     <QuizLayer
       key="quiz3"
       question={quizQuestions[2]}
       onCorrect={handleLayerUnlock}
       layerNumber={3}
     />,
-    <MessageSection key="message" onContinue={handleLayerUnlock} />,
     <QuizLayer
       key="quiz4"
       question={quizQuestions[3]}
