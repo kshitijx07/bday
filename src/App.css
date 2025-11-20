@@ -1672,3 +1672,63 @@ button:focus,
     font-size: 1rem;
   }
 }
+
+
+/* ============================================
+   FULLSCREEN VIDEO PLAYER
+   ============================================ */
+
+.video-container-fullscreen {
+  width: 100%;
+  max-width: 100vw;
+  height: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.video-player-fullscreen {
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  background: #000;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 60px rgba(255, 154, 203, 0.4);
+  aspect-ratio: 16/9;
+  position: relative;
+}
+
+.video-player-fullscreen video {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Mobile fullscreen video */
+@media (max-width: 768px) {
+  .video-container-fullscreen {
+    padding: 10px;
+  }
+
+  .video-player-fullscreen {
+    width: 100%;
+    max-width: 100%;
+    border-radius: 15px;
+    margin: 15px auto;
+  }
+
+  .surprise-section {
+    padding: 20px 10px 100px 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .video-container-fullscreen {
+    padding: 5px;
+  }
+
+  .video-player-fullscreen {
+    border-radius: 10px;
+    margin: 10px auto;
+  }
+}
