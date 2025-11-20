@@ -1,13 +1,46 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
-import { FaHeart } from "react-icons/fa";
+import { useState, useEffect, useRef } from "react";
 
 const SurpriseVideo = () => {
   const [showVideo, setShowVideo] = useState(false);
+  const videoRef = useRef(null);
 
-  const handleReveal = () => {
-    setShowVideo(true);
-  };
+  useEffect(() => {
+    // Auto-show video after countdown
+    const timer = setTimeout(() => {
+      setShowVideo(true);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    if (showVideo && videoRef.current) {
+      // Try to play and request fullscreen
+      const playVideo = async () => {
+        try {
+          await videoRef.current.play();
+          
+          // Request fullscreen on mobile for immersive experience
+          if (videoRef.current.requestFullscreen) {
+            videoRef.current.requestFullscreen().catch(() => {
+              console.log('Fullscreen not supported or denied');
+            });
+          } else if (videoRef.current.webkitEnterFullscreen) {
+            // iOS Safari
+            videoRef.current.webkitEnterFullscreen();
+          } else if (videoRef.current.mozRequestFullScreen) {
+            videoRef.current.mozRequestFullScreen();
+          } else if (videoRef.current.msRequestFullscreen) {
+            videoRef.current.msRequestFullscreen();
+          }
+        } catch (error) {
+          console.log('Auto-play prevented, user will need to tap play');
+        }
+      };
+      
+      playVideo();
+    }
+  }, [showVideo]);
 
   return (
     <motion.section
@@ -16,115 +49,53 @@ const SurpriseVideo = () => {
       transition={{ duration: 1 }}
       className="surprise-section"
     >
-      {!showVideo ? (
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ type: "spring", stiffness: 200 }}
-          className="surprise-reveal"
+      <motion.div
+        initial={{ scale: 0, opacity: 0 }}
+        animate={{ scale: 1, opacity: 1 }}
+        transition={{ duration: 0.8, type: "spring" }}
+        className="video-container-fullscreen"
+      >
+        <motion.h3 
+          className="video-title"
+          initial={{ y: -30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.3 }}
         >
-          <motion.h2
-            animate={{ scale: [1, 1.05, 1] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="surprise-title"
-          >
-            Your Surprise ❤️
-          </motion.h2>
-
-          <motion.button
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
-            onClick={handleReveal}
-            className="reveal-button"
-            animate={{
-              boxShadow: [
-                "0 20px 60px rgba(255, 20, 147, 0.4)",
-                "0 25px 70px rgba(255, 20, 147, 0.6)",
-                "0 20px 60px rgba(255, 20, 147, 0.4)",
-              ],
+          Your Special Surprise 💕
+        </motion.h3>
+        
+        <div className="video-player-fullscreen">
+          <video
+            ref={videoRef}
+            controls
+            playsInline
+            preload="auto"
+            webkit-playsinline="true"
+            x5-playsinline="true"
+            x5-video-player-type="h5"
+            x5-video-player-fullscreen="true"
+            style={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'contain',
+              backgroundColor: '#000',
             }}
-            transition={{ duration: 2, repeat: Infinity }}
           >
-            <motion.div
-              animate={{ rotate: 360 }}
-              transition={{ duration: 2, repeat: Infinity, ease: "linear" }}
-              className="heart-button-icon"
-            >
-              <FaHeart size={50} />
-            </motion.div>
-            <span>Click to Play</span>
-          </motion.button>
-
-          <div className="sparkle-ring">
-            {[...Array(12)].map((_, i) => (
-              <motion.div
-                key={i}
-                className="ring-sparkle"
-                animate={{
-                  scale: [0, 1, 0],
-                  opacity: [0, 1, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  delay: i * 0.15,
-                }}
-                style={{
-                  transform: `rotate(${i * 30}deg) translateY(-100px)`,
-                }}
-              >
-                ✨
-              </motion.div>
-            ))}
-          </div>
-        </motion.div>
-      ) : (
-        <motion.div
-          initial={{ scale: 0, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          className="video-container glass-card"
+            <source src="/video.mp4" type="video/mp4" />
+            <source src="/video.webm" type="video/webm" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+        
+        <motion.p 
+          className="video-caption"
+          initial={{ y: 30, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.5 }}
         >
-          <h3 className="video-title">Made With Love Just For You 💕</h3>
-          <div className="video-player">
-            <video
-              controls
-              playsInline
-              preload="metadata"
-              webkit-playsinline="true"
-              x5-playsinline="true"
-              style={{
-                width: '100%',
-                height: '100%',
-                borderRadius: '20px',
-                objectFit: 'contain',
-                backgroundColor: '#000',
-              }}
-              onLoadedMetadata={(e) => {
-                // Try to auto-play, but respect browser policies
-                e.target.play().catch(() => {
-                  // Auto-play blocked, user will click play button
-                  console.log('Auto-play prevented');
-                });
-              }}
-            >
-              <source src="/video.mp4" type="video/mp4" />
-              <source src="/video.webm" type="video/webm" />
-              Your browser does not support the video tag.
-            </video>
-          </div>
-          <p className="video-caption">
-            I hope this makes you smile as much as you make me smile every day ❤️
-          </p>
-          <p style={{ 
-            fontSize: '0.9rem', 
-            color: '#ff9acb', 
-            marginTop: '15px',
-            textAlign: 'center'
-          }}>
-          </p>
-        </motion.div>
-      )}
+          I hope this makes you smile as much as you make me smile every day ❤️
+        </motion.p>
+      </motion.div>
     </motion.section>
   );
 };
