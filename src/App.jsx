@@ -16,20 +16,20 @@ function App() {
   const quizQuestions = [
     {
       question: "What's the date we first met? 💕",
-      answer: "14", // Change this to your actual answer
-      hint: "Think about that special day in February... 💝",
+      answer: "7", // Change this to your actual answer
+      hint: "Think about that special day in July... 💝",
       wrongMessage: "Oops! Try again, my love! 💖",
     },
     {
       question: "What's my favorite thing about you? 😍",
-      answer: "smile", // Change this
+      answer: "eyes", // Change this
       hint: "It lights up my whole world... ✨",
       wrongMessage: "Not quite! Think about what makes my heart skip a beat! 💓",
     },
     {
       question: "Where did we have our first date? 🌟",
-      answer: "cafe", // Change this
-      hint: "Remember that cozy place with amazing coffee? ☕",
+      answer: "pokettcafe", // Change this
+      hint: "Remember that cozy place with amazing oreo shake? ☕",
       wrongMessage: "Hmm, that's not it! Remember our first special moment? 💕",
     },
     {
