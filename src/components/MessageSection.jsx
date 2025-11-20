@@ -6,18 +6,73 @@ const MessageSection = ({ onContinue }) => {
   const [displayedText, setDisplayedText] = useState("");
   const [showButton, setShowButton] = useState(false);
   
-  const fullMessage = `My Dearest Love,
+  const fullMessage = `Neha…
+Happy Birthday, my love.
+I don’t even know where to begin, because how do you describe someone who feels like your whole world?
 
-On this special day, I want you to know how incredibly blessed I feel to have you in my life. Every moment with you is a treasure, every smile you share brightens my world, and every laugh we share together creates memories I'll cherish forever.
+Every time I think about you…
+I feel this warmth that I can’t explain.
+You are not just a part of my life —
+you ARE my life.
+My happiness.
+My peace.
+My reason.
+My everything.
 
-You are not just my girlfriend, you are my best friend, my confidant, and my greatest adventure. Your kindness, your beauty (inside and out), and your amazing spirit inspire me every single day.
+Sometimes I sit and think about you,
+and my chest literally hurts in the sweetest way…
+because I can’t believe I get to love someone like you.
+I can’t believe I met someone who is
+so pure,
+so caring,
+so soft,
+so precious,
+so perfect to me in every single way.
 
-I promise to always make you smile, to support your dreams, to hold your hand through every challenge, and to love you more with each passing day.
+Neha…
+I know I don’t say it every day,
+but you mean more to me than words will ever be able to explain.
+I love how you laugh.
+I love how you talk.
+I love how you care.
+I love how you understand me without me even speaking.
+I love everything about you…
+even the small things that you probably don’t even notice.
 
-Happy Birthday, my beautiful angel. Here's to many more years of love, laughter, and unforgettable moments together.
+When I call you “mine,”
+I say it with a heart full of love,
+full of pride,
+full of gratitude.
+Because you are the kind of girl
+people pray for…
+and somehow
+you chose me.
 
-Forever yours,
-With all my love ❤️`;
+I want today to remind you of one thing —
+you are unbelievably important to me.
+Not for a moment,
+not for a phase,
+not temporarily…
+but forever.
+
+Your presence in my life is the most beautiful blessing I’ve ever received.
+You make me want to be better.
+You make me feel safe.
+You make me feel loved.
+You make me feel complete.
+And I fall for you a little more every single day.
+
+So today, on your special day…
+I just want to tell you again:
+I love you. In ways I can’t explain.
+In depths I can’t measure.
+In a lifetime I can’t outgrow.
+
+Happy Birthday, Neha.
+My girl.
+My angel.
+My heart.
+My forever. 💖`;
 
   useEffect(() => {
     let index = 0;
