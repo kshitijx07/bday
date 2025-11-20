@@ -122,7 +122,6 @@ const SurpriseVideo = () => {
             marginTop: '15px',
             textAlign: 'center'
           }}>
-            💡 Place your video file as "video.mp4" in the public folder
           </p>
         </motion.div>
       )}

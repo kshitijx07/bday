@@ -28,7 +28,7 @@ function App() {
     },
     {
       question: "Where did we have our first date? 🌟",
-      answer: "pokettcafe", // Change this
+      answer: "pokket cafe", // Change this
       hint: "Remember that cozy place with amazing oreo shake? ☕",
       wrongMessage: "Hmm, that's not it! Remember our first special moment? 💕",
     },
