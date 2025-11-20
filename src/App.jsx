@@ -131,7 +131,6 @@ function App() {
 
       <footer className="footer">
         <p>Made with 💖 for the most amazing person in the world</p>
-        <p className="footer-date">Birthday 2024</p>
       </footer>
     </div>
   );
