@@ -1,0 +1,71 @@
+🎬 HOW TO ADD YOUR PRIVATE VIDEO
+
+STEP 1: Prepare Your Video
+---------------------------
+1. Make sure your video is in MP4 format (most common)
+2. Recommended: Keep file size under 100MB for faster loading
+3. If video is too large, compress it using:
+   - HandBrake (free software)
+   - Online tools like cloudconvert.com
+   - Or reduce quality/resolution
+
+STEP 2: Add Video to Project
+-----------------------------
+1. Rename your video file to: video.mp4
+2. Place it in THIS FOLDER (birthday-website/public/)
+3. The file should be at: birthday-website/public/video.mp4
+
+STEP 3: Test
+------------
+1. Refresh your browser
+2. Click the "Click to Play" button
+3. Your video should play!
+
+ALTERNATIVE FORMATS:
+-------------------
+If you have WebM format, you can also add:
+- video.webm (place in same folder)
+
+The video player will automatically try both formats.
+
+FILE STRUCTURE:
+--------------
+birthday-website/
+├── public/
+│   ├── video.mp4  ← PUT YOUR VIDEO HERE
+│   └── vite.svg
+├── src/
+└── ...
+
+TROUBLESHOOTING:
+---------------
+❌ Video not playing?
+   → Check file name is exactly "video.mp4"
+   → Check file is in public folder
+   → Try refreshing browser (Ctrl+F5)
+   → Check browser console (F12) for errors
+
+❌ Video too slow to load?
+   → Compress the video file
+   → Reduce video quality/resolution
+   → Use a shorter video
+
+❌ Video not working on mobile?
+   → Make sure file is MP4 format
+   → Compress to smaller size
+   → Test on actual device
+
+PRIVACY:
+--------
+✅ Your video stays on your computer
+✅ Only people with the website link can see it
+✅ Not uploaded to any third-party service
+✅ Completely private
+
+When you deploy to Vercel/Netlify, the video will be uploaded
+with your website files (still private, only accessible via your URL).
+
+CURRENT STATUS:
+--------------
+The video player is ready and waiting for your video file!
+Just add "video.mp4" to this folder and refresh the page.

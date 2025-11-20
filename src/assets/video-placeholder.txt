@@ -1,0 +1,17 @@
+📹 VIDEO PLACEHOLDER
+
+Place your birthday video here and name it: video.mp4
+
+Supported formats:
+- MP4 (recommended)
+- WebM
+- OGG
+
+Tips:
+- Keep file size under 50MB for faster loading
+- Use H.264 codec for best compatibility
+- Compress video if needed using HandBrake or similar tools
+
+Alternative:
+You can also use a YouTube or Vimeo URL instead of a local file.
+See CUSTOMIZATION-GUIDE.md for instructions.
