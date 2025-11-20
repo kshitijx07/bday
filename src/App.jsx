@@ -11,6 +11,8 @@ import "./App.css";
 
 function App() {
   const [currentLayer, setCurrentLayer] = useState(0);
+  const [showCountdown, setShowCountdown] = useState(false);
+  const [nextLayer, setNextLayer] = useState(0);
 
   // Define quiz questions for each layer
   const quizQuestions = [
@@ -41,7 +43,14 @@ function App() {
   ];
 
   const handleLayerUnlock = () => {
-    setCurrentLayer(currentLayer + 1);
+    // Show countdown before moving to next layer
+    setNextLayer(currentLayer + 1);
+    setShowCountdown(true);
+  };
+
+  const handleCountdownComplete = () => {
+    setShowCountdown(false);
+    setCurrentLayer(nextLayer);
   };
 
   // Define what shows at each layer
@@ -83,31 +92,41 @@ function App() {
 
       <div className="layer-container">
         <AnimatePresence mode="wait">
-          <motion.div
-            key={currentLayer}
-            initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
-            animate={{ opacity: 1, scale: 1, rotateY: 0 }}
-            exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
-            transition={{ duration: 0.8, type: "spring" }}
-          >
-            {layers[currentLayer]}
-          </motion.div>
+          {showCountdown ? (
+            <CountdownReveal 
+              key="countdown" 
+              onContinue={handleCountdownComplete}
+              autoStart={true}
+            />
+          ) : (
+            <motion.div
+              key={currentLayer}
+              initial={{ opacity: 0, scale: 0.8, rotateY: -90 }}
+              animate={{ opacity: 1, scale: 1, rotateY: 0 }}
+              exit={{ opacity: 0, scale: 0.8, rotateY: 90 }}
+              transition={{ duration: 0.8, type: "spring" }}
+            >
+              {layers[currentLayer]}
+            </motion.div>
+          )}
         </AnimatePresence>
 
         {/* Progress indicator */}
-        <div className="progress-indicator">
-          <p className="progress-text">
-            Layer {currentLayer + 1} of {layers.length}
-          </p>
-          <div className="progress-bar">
-            <motion.div
-              className="progress-fill"
-              initial={{ width: 0 }}
-              animate={{ width: `${((currentLayer + 1) / layers.length) * 100}%` }}
-              transition={{ duration: 0.5 }}
-            />
+        {!showCountdown && (
+          <div className="progress-indicator">
+            <p className="progress-text">
+              Layer {currentLayer + 1} of {layers.length}
+            </p>
+            <div className="progress-bar">
+              <motion.div
+                className="progress-fill"
+                initial={{ width: 0 }}
+                animate={{ width: `${((currentLayer + 1) / layers.length) * 100}%` }}
+                transition={{ duration: 0.5 }}
+              />
+            </div>
           </div>
-        </div>
+        )}
       </div>
 
       <footer className="footer">
