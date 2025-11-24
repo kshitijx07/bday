@@ -1732,3 +1732,70 @@ button:focus,
     margin: 10px auto;
   }
 }
+
+
+/* ============================================
+   GLOWING TYPING EFFECT
+   ============================================ */
+
+.glow-input {
+  position: relative;
+  animation: inputGlow 2s ease-in-out infinite;
+}
+
+.glow-input:focus {
+  animation: inputGlowFocus 1.5s ease-in-out infinite;
+  box-shadow: 0 0 20px rgba(255, 20, 147, 0.6),
+              0 0 40px rgba(255, 154, 203, 0.4),
+              inset 0 0 20px rgba(255, 154, 203, 0.2);
+}
+
+@keyframes inputGlow {
+  0%, 100% {
+    box-shadow: 0 0 10px rgba(255, 154, 203, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(255, 154, 203, 0.6);
+  }
+}
+
+@keyframes inputGlowFocus {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(255, 20, 147, 0.6),
+                0 0 40px rgba(255, 154, 203, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(255, 20, 147, 0.8),
+                0 0 60px rgba(255, 154, 203, 0.6);
+  }
+}
+
+/* Typing effect - cursor blink */
+.quiz-input::after {
+  content: '';
+  animation: cursorBlink 1s infinite;
+}
+
+@keyframes cursorBlink {
+  0%, 49% {
+    opacity: 1;
+  }
+  50%, 100% {
+    opacity: 0;
+  }
+}
+
+/* Love popup animations */
+@keyframes loveFloat {
+  0% {
+    transform: translateY(0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-100px) scale(1);
+    opacity: 0;
+  }
+}

@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import { FaLock, FaUnlock, FaHeart, FaLightbulb } from "react-icons/fa";
 
@@ -7,6 +7,43 @@ const QuizLayer = ({ question, onCorrect, layerNumber }) => {
   const [showHint, setShowHint] = useState(false);
   const [showWrong, setShowWrong] = useState(false);
   const [attempts, setAttempts] = useState(0);
+  const [lovePopups, setLovePopups] = useState([]);
+
+  const loveMessages = [
+    "You're amazing! 💖",
+    "So beautiful! ✨",
+    "Love you! 💕",
+    "You're perfect! 🌟",
+    "My angel! 😍",
+    "Gorgeous! 💝",
+    "Stunning! 💗",
+    "My everything! 💞",
+    "So cute! 🥰",
+    "My love! 💓",
+  ];
+
+  const handleInputChange = (e) => {
+    const newValue = e.target.value;
+    setAnswer(newValue);
+    
+    // Show random love popup every few characters
+    if (newValue.length > 0 && newValue.length % 3 === 0) {
+      const randomMessage = loveMessages[Math.floor(Math.random() * loveMessages.length)];
+      const newPopup = {
+        id: Date.now(),
+        message: randomMessage,
+        x: Math.random() * 80 + 10, // 10-90%
+        y: Math.random() * 60 + 20, // 20-80%
+      };
+      
+      setLovePopups([...lovePopups, newPopup]);
+      
+      // Remove popup after animation
+      setTimeout(() => {
+        setLovePopups(prev => prev.filter(p => p.id !== newPopup.id));
+      }, 2000);
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -80,14 +117,42 @@ const QuizLayer = ({ question, onCorrect, layerNumber }) => {
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.7 }}
         >
-          <input
-            type="text"
-            value={answer}
-            onChange={(e) => setAnswer(e.target.value)}
-            placeholder="Type your answer..."
-            className={`quiz-input ${showWrong ? 'wrong-shake' : ''}`}
-            autoFocus
-          />
+          <div style={{ position: 'relative' }}>
+            <input
+              type="text"
+              value={answer}
+              onChange={handleInputChange}
+              placeholder="Type your answer..."
+              className={`quiz-input glow-input ${showWrong ? 'wrong-shake' : ''}`}
+              autoFocus
+            />
+            
+            {/* Love popups */}
+            <AnimatePresence>
+              {lovePopups.map((popup) => (
+                <motion.div
+                  key={popup.id}
+                  initial={{ opacity: 0, scale: 0, y: 0 }}
+                  animate={{ opacity: 1, scale: 1, y: -50 }}
+                  exit={{ opacity: 0, scale: 0, y: -100 }}
+                  transition={{ duration: 0.5 }}
+                  style={{
+                    position: 'absolute',
+                    left: `${popup.x}%`,
+                    top: `${popup.y}%`,
+                    fontSize: '1.2rem',
+                    fontWeight: 'bold',
+                    color: '#ff1493',
+                    textShadow: '0 0 10px rgba(255, 20, 147, 0.8)',
+                    pointerEvents: 'none',
+                    zIndex: 1000,
+                  }}
+                >
+                  {popup.message}
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
           
           <motion.button
             type="submit"
