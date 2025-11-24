@@ -11,24 +11,16 @@ const QuizLayer = ({ question, onCorrect, layerNumber }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     
-    // Check if answer is correct (case-insensitive)
-    if (answer.toLowerCase().trim() === question.answer.toLowerCase()) {
-      // Correct answer!
+    // Accept any answer - no wrong answers!
+    if (answer.trim().length > 0) {
+      // Any answer is correct!
       setShowWrong(false);
       setTimeout(() => {
         onCorrect();
-      }, 1000);
+      }, 500);
     } else {
-      // Wrong answer
+      // Empty answer - ask to type something
       setShowWrong(true);
-      setAttempts(attempts + 1);
-      
-      // Show hint after 2 wrong attempts
-      if (attempts >= 1) {
-        setShowHint(true);
-      }
-      
-      // Shake animation
       setTimeout(() => {
         setShowWrong(false);
       }, 2000);
@@ -107,7 +99,7 @@ const QuizLayer = ({ question, onCorrect, layerNumber }) => {
           </motion.button>
         </motion.form>
 
-        {/* Wrong answer message */}
+        {/* Wrong answer message - only for empty input */}
         <AnimatePresence>
           {showWrong && (
             <motion.div
@@ -116,7 +108,7 @@ const QuizLayer = ({ question, onCorrect, layerNumber }) => {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -20 }}
             >
-              <p>{question.wrongMessage}</p>
+              <p>Please type something! 💕</p>
             </motion.div>
           )}
         </AnimatePresence>
@@ -127,8 +119,6 @@ const QuizLayer = ({ question, onCorrect, layerNumber }) => {
           onClick={() => setShowHint(!showHint)}
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: attempts >= 1 ? 1 : 0.5 }}
         >
           <FaLightbulb /> {showHint ? "Hide Hint" : "Need a Hint?"}
         </motion.button>

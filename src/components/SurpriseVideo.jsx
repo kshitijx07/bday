@@ -6,39 +6,43 @@ const SurpriseVideo = () => {
   const videoRef = useRef(null);
 
   useEffect(() => {
-    // Auto-show video after countdown
-    const timer = setTimeout(() => {
-      setShowVideo(true);
-    }, 500);
-    return () => clearTimeout(timer);
+    // Show video immediately
+    setShowVideo(true);
   }, []);
 
   useEffect(() => {
     if (showVideo && videoRef.current) {
-      // Try to play and request fullscreen
-      const playVideo = async () => {
-        try {
-          await videoRef.current.play();
-          
-          // Request fullscreen on mobile for immersive experience
-          if (videoRef.current.requestFullscreen) {
-            videoRef.current.requestFullscreen().catch(() => {
-              console.log('Fullscreen not supported or denied');
-            });
-          } else if (videoRef.current.webkitEnterFullscreen) {
-            // iOS Safari
-            videoRef.current.webkitEnterFullscreen();
-          } else if (videoRef.current.mozRequestFullScreen) {
-            videoRef.current.mozRequestFullScreen();
-          } else if (videoRef.current.msRequestFullscreen) {
-            videoRef.current.msRequestFullscreen();
+      // Small delay to ensure video is loaded
+      const timer = setTimeout(() => {
+        const playVideo = async () => {
+          try {
+            // Play the video
+            await videoRef.current.play();
+            
+            // Request fullscreen on mobile for immersive experience
+            setTimeout(() => {
+              if (videoRef.current.requestFullscreen) {
+                videoRef.current.requestFullscreen().catch(() => {
+                  console.log('Fullscreen not supported or denied');
+                });
+              } else if (videoRef.current.webkitEnterFullscreen) {
+                // iOS Safari
+                videoRef.current.webkitEnterFullscreen();
+              } else if (videoRef.current.mozRequestFullScreen) {
+                videoRef.current.mozRequestFullScreen();
+              } else if (videoRef.current.msRequestFullscreen) {
+                videoRef.current.msRequestFullscreen();
+              }
+            }, 100);
+          } catch (error) {
+            console.log('Auto-play prevented, user will need to tap play');
           }
-        } catch (error) {
-          console.log('Auto-play prevented, user will need to tap play');
-        }
-      };
+        };
+        
+        playVideo();
+      }, 300);
       
-      playVideo();
+      return () => clearTimeout(timer);
     }
   }, [showVideo]);
 
